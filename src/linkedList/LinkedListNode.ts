@@ -1,4 +1,9 @@
-export default class LinkedListNode {
-  private value: number | null = null;
-  private next: number | null = null;
+export default class LinkedListNode<T> {
+  value: T | null = null;
+  next: LinkedListNode<T> | null = null;
+
+  constructor(value: T, next = null) {
+    this.next = next;
+    this.value = value;
+  }
 }
