@@ -83,4 +83,31 @@ export default class LinkedList<T> {
     }
     this.head = previous;
   }
+
+  fromArray(array: T[]): void {
+    let prevNode: LinkedListNode<T> = null;
+    array.forEach((el) => {
+      const newNode = new LinkedListNode<T>(el);
+      
+      if (!this.head) {
+        this.head = newNode;
+      }
+
+      if (prevNode) {
+        prevNode.next = newNode;
+      }
+      prevNode = newNode;
+    })
+  }
+
+  toArray():T[] {
+    let current = this.head;
+    const array = [];
+    while(current) {
+      array.push(current.value);
+      current = current.next;
+    }
+
+    return array;
+  }
 }

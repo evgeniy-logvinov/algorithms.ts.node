@@ -161,4 +161,27 @@ describe('List tests', () => {
       expect(linkedList.toString()).toBe('164, 144, 140, 130, 120');
     });
   })
+
+  describe('toArray', () => {
+    it('should get array', () => {
+      const linkedList = new LinkedList();
+      linkedList.appendElement(120);
+      linkedList.appendElement(130);
+      linkedList.appendElement(140);
+      linkedList.appendElement(144);
+      linkedList.appendElement(164);
+
+      expect(linkedList.toArray().join(', ')).toBe('120, 130, 140, 144, 164');
+    });
+  })
+
+  describe('fromArray', () => {
+    it('should make list from array', () => {
+      const linkedList = new LinkedList();
+      const array = [1, 2, 3, 4, 5, 6];
+      linkedList.fromArray(array);
+
+      expect(linkedList.toArray().join(', ')).toBe('1, 2, 3, 4, 5, 6');
+    });
+  })
 });
