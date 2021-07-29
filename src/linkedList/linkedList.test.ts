@@ -184,4 +184,22 @@ describe('List tests', () => {
       expect(linkedList.toArray().join(', ')).toBe('1, 2, 3, 4, 5, 6');
     });
   })
+
+  describe('find', () => {
+    it('should find element from array', () => {
+      const linkedList = new LinkedList();
+      const array = [1, 2, 3, 4, 5, 6];
+      linkedList.fromArray(array);
+
+      expect(linkedList.find(3).value).toBe(3);
+    });
+
+    it('should find null', () => {
+      const linkedList = new LinkedList();
+      const array = [1, 2, 3, 4, 5, 6];
+      linkedList.fromArray(array);
+
+      expect(linkedList.find(10)).toBeNull();
+    });
+  })
 });

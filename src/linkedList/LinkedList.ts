@@ -88,7 +88,7 @@ export default class LinkedList<T> {
     let prevNode: LinkedListNode<T> = null;
     array.forEach((el) => {
       const newNode = new LinkedListNode<T>(el);
-      
+
       if (!this.head) {
         this.head = newNode;
       }
@@ -109,5 +109,17 @@ export default class LinkedList<T> {
     }
 
     return array;
+  }
+
+  find(value: T): LinkedListNode<T> {
+    let current = this.head;
+    while(current) {
+      if (current.value === value) {
+        return current;
+      }
+      current = current.next;
+    }
+
+    return null;
   }
 }
