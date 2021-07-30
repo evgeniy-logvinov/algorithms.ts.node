@@ -1,7 +1,7 @@
-import LinkedListNode from './LinkedListNode';
-import LinkedList from './LinkedList';
+import LinkedListNode from '../LinkedListNode';
+import LinkedList from '../LinkedList';
 
-describe('List Node tests', () => {
+describe('LinkedListNode', () => {
   it('should create correct node with value', () => {
     const linkedListNode = new LinkedListNode(14);
     expect(linkedListNode.value).toBe(14);
@@ -25,7 +25,7 @@ describe('List Node tests', () => {
   });
 });
 
-describe('List tests', () => {
+describe('LinkedList', () => {
   it('should init list without head', () => {
     const linkedList = new LinkedList();
     expect(linkedList.head).toBeNull();
