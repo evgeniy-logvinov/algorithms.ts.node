@@ -9,7 +9,9 @@ export default class DoublyLinkedList<T> {
     this.tail = node;
   }
 
-  append(node: DoublyLinkedListNode<T>): void {
+  append(value: T): void {
+    const node = new DoublyLinkedListNode<T>(value);
+
     if (!this.head) {
       this.head = node;
       this.tail = node;
@@ -21,8 +23,8 @@ export default class DoublyLinkedList<T> {
     while(current) {
       if (!current.next) {
         current.next = node;
-        current.next.prev = current.next;
-        this.tail = current.next;
+        node.prev = current;
+        this.tail = node;
         return;
       }
 
@@ -30,7 +32,8 @@ export default class DoublyLinkedList<T> {
     }
   }
 
-  prepend(node: DoublyLinkedListNode<T>): void {
+  prepend(value: T): void {
+    const node = new DoublyLinkedListNode<T>(value);
     const current = node;
     current.next = this.head;
 
@@ -45,6 +48,29 @@ export default class DoublyLinkedList<T> {
     this.head = node;
   }
 
+  convertToForwardArray(): T[] {
+    let current = this.head;
+    const res: T[] = [];
+    while (current) {
+      res.push(current.value);
+      current = current.next;
+    }
+
+    return res;
+  }
+
+  convertToBackArray(): T[] {
+    let previous = this.tail;
+    const res: T[] = [];
+
+    while (previous) {
+      res.push(previous.value);
+      previous = previous.prev;
+    }
+
+    return res;
+  }
+
   toString(callback: (head: DoublyLinkedListNode<T>) => string = null): string {
     if(callback) {
       return callback(this.head);
@@ -56,6 +82,22 @@ export default class DoublyLinkedList<T> {
     while(current) {
       res.push(current.value);
       current = current.next;
+    }
+
+    return res.join(', ');
+  }
+
+  toStringBack(callback: (head: DoublyLinkedListNode<T>) => string = null): string {
+    if(callback) {
+      return callback(this.tail);
+    }
+
+    const res = [];
+    let current = this.tail;
+
+    while(current) {
+      res.push(current.value);
+      current = current.prev;
     }
 
     return res.join(', ');

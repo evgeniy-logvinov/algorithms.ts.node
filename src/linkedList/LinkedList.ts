@@ -100,7 +100,7 @@ export default class LinkedList<T> {
     })
   }
 
-  toArray():T[] {
+  toArray(): T[] {
     let current = this.head;
     const array = [];
     while(current) {

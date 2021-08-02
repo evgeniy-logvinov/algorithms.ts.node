@@ -56,24 +56,40 @@ describe('DoublyLinkedList', () => {
     })
 
     it('should get a string with values', () => {
-      const node = new DoublyLinkedListNode<number>(123);
-      const node2 = new DoublyLinkedListNode<number>(432);
-      const node3 = new DoublyLinkedListNode<number>(555);
-      const list = new DoublyLinkedList(node);
+      const list = new DoublyLinkedList();
 
-      list.append(node2);
-      list.append(node3);
+      list.append(123);
+      list.append(432);
+      list.append(555);
 
       expect(list.toString()).toBe('123, 432, 555');
     })
   })
 
-  describe('append', () => {
-    it('should create list with head = tail', () => {
-      const node = new DoublyLinkedListNode<number>(4);
+  describe('toStringBack', () => {
+    it('should get a string with value', () => {
+      const node = new DoublyLinkedListNode<number>(123);
+      const list = new DoublyLinkedList(node);
+
+      expect(list.toStringBack()).toBe('123')
+    })
+
+    it('should get a string with values', () => {
       const list = new DoublyLinkedList();
 
-      list.append(node);
+      list.append(123);
+      list.append(432);
+      list.append(555);
+
+      expect(list.toStringBack()).toBe('555, 432, 123');
+    })
+  })
+
+  describe('append', () => {
+    it('should create list with head = tail', () => {
+      const list = new DoublyLinkedList();
+
+      list.append(4);
 
       expect(list.head).toBeDefined();
       expect(list.tail).toBeDefined();
@@ -82,15 +98,11 @@ describe('DoublyLinkedList', () => {
     })
 
     it('should append node to the list', () => {
-      const node = new DoublyLinkedListNode<number>(4);
-      const node2 = new DoublyLinkedListNode<number>(42);
-      const node3 = new DoublyLinkedListNode<number>(333);
-
       const list = new DoublyLinkedList();
 
-      list.append(node);
-      list.append(node2);
-      list.append(node3);
+      list.append(4);
+      list.append(42);
+      list.append(333);
 
       expect(list.head).toBeDefined();
       expect(list.tail).toBeDefined();
@@ -102,27 +114,46 @@ describe('DoublyLinkedList', () => {
 
   describe('prepend', () => {
     it('should add element in the empty list', () => {
-      const node = new DoublyLinkedListNode<number>(44);
       const list = new DoublyLinkedList();
-      list.prepend(node);
+      list.prepend(44);
 
       expect(list.head).toBeDefined();
       expect(list.head.value).toBe(44);
     })
 
     it('it should add elements in the list', () => {
-      const node = new DoublyLinkedListNode<number>(44);
-      const node2 = new DoublyLinkedListNode<number>(55);
-      const node3 = new DoublyLinkedListNode<number>(66);
-      const node4 = new DoublyLinkedListNode<number>(88);
       const list = new DoublyLinkedList();
 
-      list.prepend(node);
-      list.prepend(node2);
-      list.prepend(node3);
-      list.prepend(node4);
+      list.prepend(44);
+      list.prepend(55);
+      list.prepend(66);
+      list.prepend(88);
 
       expect(list.toString()).toBe('88, 66, 55, 44');
+    })
+  })
+
+  describe('convertToForwardArray', () => {
+    it('should get forward array values', () => {
+      const list = new DoublyLinkedList();
+      list.append(11);
+      list.append(22);
+      list.append(33);
+      list.append(44);
+
+      expect(list.convertToForwardArray().join(', ')).toBe([11, 22, 33, 44].join(', '))
+    })
+  })
+
+  describe('convertToBackArray', () => {
+    it('should get back array values', () => {
+      const list = new DoublyLinkedList();
+      list.append(11);
+      list.append(22);
+      list.append(33);
+      list.append(44);
+      // console.log(list.convertToBackArray());
+      expect(list.convertToBackArray().join(', ')).toBe([44, 33, 22, 11].join(', '))
     })
   })
 })
