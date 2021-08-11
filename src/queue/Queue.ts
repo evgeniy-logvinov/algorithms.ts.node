@@ -1,53 +1,69 @@
-import LinkedList from "../linkedList/LinkedList";
-import LinkedListNode from "../linkedList/LinkedListNode";
+// import LinkedList from "../linkedList/LinkedList";
+// import LinkedListNode from "../linkedList/LinkedListNode";
+
+import QueueNode from "./QueueNode";
 
 export default class Queue<T> {
-  private linkedList: LinkedList<T>;
-
-  constructor() {
-    this.linkedList = new LinkedList<T>();
-  }
+  // add elements to head
+  private head: QueueNode<T>;
+  // remove from tail
+  private tail: QueueNode<T>;
 
   peek(): T {
-    if (!this.linkedList.head) {
-      return null
+    if (!this.head) {
+      return null;
     }
 
-    return this.linkedList.head.value;
+    return this.head.getValue() || null;
   }
 
-  enqueue(value: T): void {
-    this.linkedList.appendElement(value);
+  push(value: T): void {
+    const node = new QueueNode<T>(value);
+    if (!this.head) {
+      this.head = node;
+    }
+
+    if (this.tail) {
+      this.tail.setNext(node);
+    }
+
+
+    this.tail = node;
   }
 
-  dequeue(): T {
-    const head = this.linkedList.head;
-    this.linkedList.deleteHead();
+  pop(): T {
+    const res = this.head;
+    if (this.head) {
+      this.head = this.head.getNext();
+    }
 
-    return head ? head.value : null;
+    return res ? res.getValue() : null;
+  }
+
+  toArray(): T[] {
+    const res = [];
+    let current = this.head;
+    while (current) {
+      res.push(current.getValue());
+      current = current.getNext();
+    }
+
+    return res;
   }
 
   toString(): string {
-    return this.linkedList.toString();
+    return this.toArray().join(', ');
   }
 
-  getHead(): LinkedListNode<T> {
-    return this.linkedList.head;
+  getHead(): QueueNode<T> {
+    return this.head;
   }
-
-  // getHead(): QueueNode<T> {
-  //   return this.head;
-  // }
 
   isEmpty(): boolean {
-    return !this.linkedList.head;
+    return !this.head;
   }
 
-  // getTail(): QueueNode<T> {
-  //   return this.tail;
-  // }
-
-  // pop(): void {
-
-  // }
+  getTail(): QueueNode<T> {
+    return this.tail;
+  }
 }

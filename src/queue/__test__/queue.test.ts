@@ -4,60 +4,91 @@ describe('Queue', () => {
   describe('toString', () => {
     it('should return string value', () => {
       const queue = new Queue();
-      queue.enqueue(45);
+      queue.push(45);
 
       expect(queue.toString()).toBe('45');
     })
   })
 
-  describe('enqueue', () => {
+  describe('push', () => {
     it('should insert value to empty queue', () => {
       const queue = new Queue();
-      queue.enqueue(4522);
+      queue.push(4522);
 
       expect(queue.getHead()).toBeDefined();
-      expect(queue.getHead().value).toBeDefined();
-      expect(queue.getHead().value).toBe(4522);
+      expect(queue.getHead().getValue()).toBeDefined();
+      expect(queue.getHead().getValue()).toBe(4522);
     })
 
     it('should insert value to not empty queue', () => {
       const queue = new Queue();
 
-      queue.enqueue(4522);
-      queue.enqueue(3);
-      queue.enqueue(123);
+      queue.push(4522);
+      queue.push(3);
+      queue.push(123);
 
       expect(queue.getHead()).toBeDefined();
-      expect(queue.getHead().value).toBeDefined();
-      expect(queue.getHead().value).toBe(4522);
-      expect(queue.getHead().next).toBeDefined();
-      expect(queue.getHead().next.value).toBeDefined();
-      expect(queue.getHead().next.value).toBe(3);
+      expect(queue.getHead().getValue()).toBeDefined();
+      expect(queue.getHead().getValue()).toBe(4522);
+      expect(queue.getHead().getNext()).toBeDefined();
+      expect(queue.getHead().getNext().getValue()).toBeDefined();
+      expect(queue.getHead().getNext().getValue()).toBe(3);
     })
   })
 
-  describe('dequeue', () => {
+  describe('pop', () => {
     it('should remove value from empty queue', () => {
       const queue = new Queue();
-      queue.dequeue();
+      const res = queue.pop();
 
-      expect(queue.getHead()).toBeNull();
+      expect(res).toBeNull();
+      expect(queue.getHead()).toBeUndefined();
     })
 
     it('should remove value from queue', () => {
       const queue = new Queue();
 
-      queue.enqueue(4522);
-      queue.enqueue(3);
-      queue.enqueue(123);
+      queue.push(4522);
+      queue.push(3);
+      queue.push(123);
 
-      queue.dequeue();
+      const res = queue.pop();
+      expect(res).toBeDefined();
+      expect(res).toBe(4522);
       expect(queue.getHead()).toBeDefined();
-      expect(queue.getHead().value).toBeDefined();
-      expect(queue.getHead().value).toBe(3);
-      expect(queue.getHead().next).toBeDefined();
-      expect(queue.getHead().next.value).toBeDefined();
-      expect(queue.getHead().next.value).toBe(123);
+      expect(queue.getHead().getValue()).toBeDefined();
+      expect(queue.getHead().getValue()).toBe(3);
+      expect(queue.getHead().getNext()).toBeDefined();
+      expect(queue.getHead().getNext().getValue()).toBeDefined();
+      expect(queue.getHead().getNext().getValue()).toBe(123);
+    })
+  })
+
+  describe('peek', () => {
+    it('should get null value from the front of queue', () => {
+      const queue = new Queue();
+      const res = queue.peek();
+
+      expect(res).toBeNull();
+      expect(queue.getHead()).toBeUndefined();
+    })
+
+    it('should get value from the front', () => {
+      const queue = new Queue();
+
+      queue.push(4522);
+      queue.push(3);
+      queue.push(123);
+
+      const res = queue.peek();
+      expect(res).toBeDefined();
+      expect(res).toBe(4522);
+      expect(queue.getHead()).toBeDefined();
+      expect(queue.getHead().getValue()).toBeDefined();
+      expect(queue.getHead().getValue()).toBe(4522);
+      expect(queue.getHead().getNext()).toBeDefined();
+      expect(queue.getHead().getNext().getValue()).toBeDefined();
+      expect(queue.getHead().getNext().getValue()).toBe(3);
     })
   })
 
@@ -71,7 +102,7 @@ describe('Queue', () => {
     it('should check not empty queue', () => {
       const queue = new Queue();
 
-      queue.enqueue(144);
+      queue.push(144);
 
       expect(queue.isEmpty()).toBeFalsy();
     })
