@@ -122,4 +122,10 @@ export default class LinkedList<T> {
 
     return null;
   }
+
+  deleteHead(): void {
+    if (this.head) {
+      this.head = this.head.next;
+    }
+  }
 }

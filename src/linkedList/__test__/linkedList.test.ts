@@ -148,6 +148,18 @@ describe('LinkedList', () => {
     });
   })
 
+  describe('deleteHead', () => {
+    it('should remove head', () => {
+      const linkedList = new LinkedList();
+      linkedList.appendElement(120);
+      linkedList.appendElement(155);
+
+      linkedList.deleteHead();
+
+      expect(linkedList.toString()).toBe('155');
+    });
+  })
+
   describe('reverse', () => {
     it('should change list order', () => {
       const linkedList = new LinkedList();
