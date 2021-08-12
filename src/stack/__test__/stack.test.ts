@@ -100,4 +100,22 @@ describe('Stack', () => {
       expect(stack.peek()).toBe(null);
     })
   })
+
+  describe('isEmpty', () => {
+    it('should return true for empty list', () => {
+      const stack = new Stack();
+
+      expect(stack).toBeDefined();
+      expect(stack.isEmpty()).toBeTruthy();
+    })
+
+    it('should return true for empty list', () => {
+      const stack = new Stack();
+
+      stack.push(435);
+
+      expect(stack).toBeDefined();
+      expect(stack.isEmpty()).toBeFalsy();
+    })
+  })
 })

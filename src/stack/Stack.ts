@@ -38,4 +38,8 @@ export default class Stack<T> {
 
     return res;
   }
+
+  isEmpty(): boolean {
+    return !this.top;
+  }
 }
