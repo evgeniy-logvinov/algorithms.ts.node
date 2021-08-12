@@ -89,6 +89,10 @@ describe('Stack', () => {
       expect(res).toBeDefined();
       expect(res).toBe(77);
       expect(stack.toArray()).toEqual([66, 33]);
+
+      const res2 = stack.pop();
+      expect(res2).toBe(66);
+      expect(stack.toArray()).toEqual([33]);
     })
   })
 
