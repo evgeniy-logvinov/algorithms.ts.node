@@ -3,6 +3,7 @@
 
 import QueueNode from "./QueueNode";
 
+// O(1)
 export default class Queue<T> {
   // add elements to head
   private head: QueueNode<T>;

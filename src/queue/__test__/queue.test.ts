@@ -1,4 +1,26 @@
 import Queue from "../Queue";
+import QueueNode from "../QueueNode";
+
+describe('QueueNode', () => {
+  it('should create node with value', () => {
+    const node = new QueueNode<number>(23);
+
+    expect(node).toBeDefined();
+    expect(node.getValue()).toBe(23);
+  })
+
+  it('should add next param', () => {
+    const node = new QueueNode<number>(23);
+    const nodeNext = new QueueNode<number>(44);
+
+    node.setNext(nodeNext);
+
+    expect(node).toBeDefined();
+    expect(node.getNext()).toBeDefined();
+    expect(node.getNext().getValue()).toBeDefined();
+    expect(node.getNext().getValue()).toBe(44);
+  })
+})
 
 describe('Queue', () => {
   describe('toString', () => {
