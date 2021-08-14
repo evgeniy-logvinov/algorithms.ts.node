@@ -43,20 +43,61 @@ export default class Heap<T> {
     this.container[secondIndex] = current;
   }
 
+  peek(): T {
+    return this.container.length ? this.container[0] : null;
+  }
+
   add(value: T): void {
     const firstIndex = this.container.length;
     this.container[firstIndex] = value;
     this.heapifyUp(firstIndex);
   }
 
-  remove(): void {
+  poll(): T {
+    if (!this.container.length) {
+      return null;
+    }
+
     const lastIndex = this.container.length - 1;
+    const res = this.container[0];
     const index = 0;
     this.swap(lastIndex, index);
 
     this.container.length = this.container.length - 1;
 
     this.heapifyDown(index);
+    return res;
+  }
+
+  find(value: T): number[] {
+    // const res = this.container.filter((el) => el === item);
+    const res = this.container.reduce<number[]>((prev: number[], curr: T, currIndex: number) => {
+      if (curr === value) {
+        prev.push(currIndex);
+      }
+
+      return prev;
+    }, [])
+
+    return res;
+  }
+
+  remove(value: T): void{
+    const items = this.find(value);
+
+    while (items.length) {
+      const indexToRemove = items.pop();
+      if (indexToRemove === this.container.length - 1) {
+        this.container.pop();
+      } else {
+        this.container[indexToRemove] = this.container.pop();
+        if (!this.pareIsInCorrectOrder(indexToRemove, this.getParentIndex(indexToRemove))) {
+          this.heapifyUp(indexToRemove);
+        } else {
+          this.heapifyDown(indexToRemove);
+        }
+      }
+    }
   }
 
   heapifyUp(index: number): void {
@@ -70,7 +111,7 @@ export default class Heap<T> {
     let currentIndex = index;
 
     while (this.hasLeftChild(currentIndex) || this.hasRightChild(currentIndex)) {
-      const maxElementIndex = this.getLeftChild(currentIndex) > this.getRightChild(currentIndex) ? this.getLeftChildIndex(currentIndex): this.getRightChildIndex(currentIndex);
+      const maxElementIndex = this.compare(this.getLeftChild(currentIndex), this.getRightChild(currentIndex)) ? this.getRightChildIndex(currentIndex): this.getLeftChildIndex(currentIndex);
 
       if (!this.pareIsInCorrectOrder(maxElementIndex, currentIndex)) {
         this.swap(maxElementIndex, currentIndex);
@@ -82,7 +123,11 @@ export default class Heap<T> {
   }
 
   pareIsInCorrectOrder(firstIndex: number, secondIndex: number): boolean {
-    return this.container[firstIndex] < this.container[secondIndex];
+    return this.compare(this.container[firstIndex], this.container[secondIndex]);
+  }
+
+  compare(a: T, b: T): boolean {
+    throw new Error( `Please implement comparator for a ${a} b ${b}`);
   }
 
   toArray(): T[] {
